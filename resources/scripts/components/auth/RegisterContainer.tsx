@@ -50,8 +50,8 @@ const RegisterContainer = () => {
                 if (response.complete) {
                     addFlash({
                         type: 'success',
-                        title: 'Success',
-                        message: 'You have successfully registered, check your email',
+                        title: 'Succès',
+                        message: 'Vous vous êtes inscrit avec succès, vérifiez votre email',
                     });
 
                     setSubmitting(false);
@@ -67,7 +67,7 @@ const RegisterContainer = () => {
 
                 if (!/^[a-zA-Z0-9][a-zA-Z0-9_.-]*[a-zA-Z0-9]$/.test(data.username))
                     error =
-                        'The username must start and end with alpha-numeric characters and contain only letters, numbers, dashes, underscores, and periods.';
+                        "Le nom d'utilisateur doit commencer et se terminer par des caractères alphanumériques et ne contenir que des lettres, des chiffres, des tirets, des underscores et des points.";
                 if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) error = 'The email must be a valid email address.';
 
                 setSubmitting(false);
@@ -88,82 +88,82 @@ const RegisterContainer = () => {
             onSubmit={onSubmit}
             initialValues={{ email: '', username: '', firstname: '', lastname: '' }}
             validationSchema={object().shape({
-                email: string().required('An email must be provided.'),
-                username: string().required('A username must be provided.'),
-                firstname: string().required('A first name must be provided.'),
-                lastname: string().required('A last name must be provided.'),
+            email: string().required('Un email doit être fourni.'),
+            username: string().required('Un nom d’utilisateur doit être fourni.'),
+            firstname: string().required('Un prénom doit être fourni.'),
+            lastname: string().required('Un nom de famille doit être fourni.'),
             })}
         >
             {({ isSubmitting, setSubmitting, submitForm }) => (
-                <RegisterFormContainer title={'Registration Form'} css={tw`w-full flex`}>
-                    <Field
-                        light
-                        type={'email'}
-                        label={'Email'}
-                        name={'email'}
-                        placeholder={'example@gmail.com'}
-                        disabled={isSubmitting}
-                    />
-                    <div css={tw`mt-6`}>
-                        <Field
-                            light
-                            type={'text'}
-                            label={'Username'}
-                            name={'username'}
-                            placeholder={'Username'}
-                            disabled={isSubmitting}
-                        />
-                    </div>
-                    <div css={tw`mt-6`}>
-                        <Field
-                            light
-                            type={'text'}
-                            label={'First Name'}
-                            name={'firstname'}
-                            placeholder={'First Name'}
-                            disabled={isSubmitting}
-                        />
-                    </div>
-                    <div css={tw`mt-6`}>
-                        <Field
-                            light
-                            type={'text'}
-                            label={'Last Name'}
-                            name={'lastname'}
-                            placeholder={'Last Name'}
-                            disabled={isSubmitting}
-                        />
-                    </div>
-                    <div css={tw`mt-6`}>
-                        <Button type={'submit'} size={'xlarge'} isLoading={isSubmitting} disabled={isSubmitting}>
-                            Register
-                        </Button>
-                    </div>
+            <RegisterFormContainer title={'Formulaire d’inscription'} css={tw`w-full flex`}>
+                <Field
+                light
+                type={'email'}
+                label={'Email'}
+                name={'email'}
+                placeholder={'exemple@gmail.com'}
+                disabled={isSubmitting}
+                />
+                <div css={tw`mt-6`}>
+                <Field
+                    light
+                    type={'text'}
+                    label={'Nom d’utilisateur'}
+                    name={'username'}
+                    placeholder={'Nom d’utilisateur'}
+                    disabled={isSubmitting}
+                />
+                </div>
+                <div css={tw`mt-6`}>
+                <Field
+                    light
+                    type={'text'}
+                    label={'Prénom'}
+                    name={'firstname'}
+                    placeholder={'Prénom'}
+                    disabled={isSubmitting}
+                />
+                </div>
+                <div css={tw`mt-6`}>
+                <Field
+                    light
+                    type={'text'}
+                    label={'Nom de famille'}
+                    name={'lastname'}
+                    placeholder={'Nom de famille'}
+                    disabled={isSubmitting}
+                />
+                </div>
+                <div css={tw`mt-6`}>
+                <Button type={'submit'} size={'xlarge'} isLoading={isSubmitting} disabled={isSubmitting}>
+                    S’inscrire
+                </Button>
+                </div>
 
-                    {recaptchaEnabled && (
-                        <Reaptcha
-                            ref={ref}
-                            size={'invisible'}
-                            sitekey={siteKey || '_invalid_key'}
-                            onVerify={(response) => {
-                                setToken(response);
-                                submitForm();
-                            }}
-                            onExpire={() => {
-                                setSubmitting(false);
-                                setToken('');
-                            }}
-                        />
-                    )}
-                    <div css={tw`mt-6 text-center`}>
-                        <Link
-                            to={'/auth/login'}
-                            css={tw`text-xs text-neutral-500 tracking-wide no-underline uppercase hover:text-neutral-600`}
-                        >
-                            Already registered?
-                        </Link>
-                    </div>
-                </RegisterFormContainer>
+                {recaptchaEnabled && (
+                <Reaptcha
+                    ref={ref}
+                    size={'invisible'}
+                    sitekey={siteKey || '_invalid_key'}
+                    onVerify={(response) => {
+                    setToken(response);
+                    submitForm();
+                    }}
+                    onExpire={() => {
+                    setSubmitting(false);
+                    setToken('');
+                    }}
+                />
+                )}
+                <div css={tw`mt-6 text-center`}>
+                <Link
+                    to={'/auth/login'}
+                    css={tw`text-xs text-neutral-500 tracking-wide no-underline uppercase hover:text-neutral-600`}
+                >
+                    Déjà inscrit ?
+                </Link>
+                </div>
+            </RegisterFormContainer>
             )}
         </Formik>
     );
